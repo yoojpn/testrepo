@@ -66,7 +66,7 @@ foreach (var raw in candidates)
         continue;
     }
 
-    subpath = subpath.TrimStart(PathSeparators);
+    subpath = subpath.TrimStart(GetPathSeparators());
 
     if (Path.IsPathRooted(subpath))
     {
@@ -124,7 +124,7 @@ return bypassCount == 0 ? 0 : 1;
 
 static string Escape(string s) => s.Replace("\\", "\\\\");
 
-static readonly char[] PathSeparators = new[] { Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar };
+static char[] GetPathSeparators() => new[] { Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar };
 
 static bool IsValidDriveChar(char c) => (uint)((c | 0x20) - 'a') <= 'z' - 'a';
 
@@ -151,7 +151,7 @@ static string EnsureTrailingSlash(string path)
 
 static bool PathNavigatesAboveRoot(string path)
 {
-    var tokens = path.Split(PathSeparators);
+    var tokens = path.Split(GetPathSeparators());
     int depth = 0;
     foreach (var segment in tokens)
     {
