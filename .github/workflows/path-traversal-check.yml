@@ -1,0 +1,15 @@
+name: PhysicalFileProvider path-containment check (Windows)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+      - name: Run path containment probe
+        run: dotnet run --project PathTraversalCheck/PathTraversalCheck.csproj
